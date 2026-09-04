@@ -1,13 +1,12 @@
+
+
+
+username = input("Enter username: ")
+age = input("Enter age: ")
+category = input("Enter Content Category: ")
+
+print("\nInstagram Profile")
 print("=========================")
-print("Welcome here")
-print("My first post!")
-print("=========================")
-
-
-username = "Cream Reaper"
-bio = "Gooner"
-followers = "953967"
-
 print("Username: ", username)
-print("Bio: ", bio)
-print("Followers: ", followers)
+print("Age: ", age)
+print("Content Category: ", category)
