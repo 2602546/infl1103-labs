@@ -10,6 +10,14 @@ def load_inventory():
         return 0, []
 
 
+def save_inventory(total, history):
+    file = open("inventory.txt", "w")
+    file.write(str(total) + "\n")
+    for h in history:
+        file.write(str(h) + "\n")
+    file.close()
+
+
 def get_valid_input():
     s = input("Enter stock quantity or quit: ")
 
@@ -46,8 +54,8 @@ while True:
     result = get_valid_input()
 
     if result == "quit":
+        save_inventory(inventory, history)
         generate_report(inventory, f)
-        print(history)
         break
     elif result is None:
         f += 1
@@ -58,6 +66,6 @@ while True:
 
         if inventory > 500:
             print("Alert: Overstock")
+            save_inventory(inventory, history)
             generate_report(inventory, f)
-            print(history)
             break
