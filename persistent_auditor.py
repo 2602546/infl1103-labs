@@ -1,3 +1,15 @@
+def load_inventory():
+    try:
+        file = open("inventory.txt", "r")
+        lines = file.readlines()
+        file.close()
+        total = int(lines[0])
+        history = [int(x) for x in lines[1:]]
+        return total, history
+    except FileNotFoundError:
+        return 0, []
+
+
 def get_valid_input():
     s = input("Enter stock quantity or quit: ")
 
@@ -27,7 +39,7 @@ def generate_report(total_units, failed_attempts):
     print("Number of Failed/Rejected Entries:", failed_attempts)
 
 
-inventory = 0
+inventory, history = load_inventory()
 f = 0
 
 while True:
