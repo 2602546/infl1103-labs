@@ -47,14 +47,17 @@ while True:
 
     if result == "quit":
         generate_report(inventory, f)
+        print(history)
         break
     elif result is None:
         f += 1
     else:
         inventory = process_delivery(inventory, result)
+        history.append(result)
         tax = calculate_tax(result)
 
         if inventory > 500:
             print("Alert: Overstock")
             generate_report(inventory, f)
+            print(history)
             break
