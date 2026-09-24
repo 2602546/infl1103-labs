@@ -1,3 +1,15 @@
+def load_inventory():
+    try:
+        file = open("inventory.txt", "r")
+        lines = file.readlines()
+        file.close()
+        total = int(lines[0])
+        history = [int(x) for x in lines[1:]]
+        return total, history
+    except FileNotFoundError:
+        return 0, []
+
+
 def get_valid_input():
     s = input("Enter stock quantity or quit: ")
 
