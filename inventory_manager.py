@@ -1,25 +1,5 @@
-import json
-
-
-def load_inventory():
-    try:
-        file = open("inventory.json", "r")
-        data = json.load(file)
-        file.close()
-        print("inventory.json found.")
-        print("Inventory loaded successfully.")
-        return data
-    except FileNotFoundError:
-        print("inventory.json not found. Starting with empty inventory.")
-        return []
-
-
-def save_inventory(inventory):
-    print("Saving inventory...")
-    file = open("inventory.json", "w")
-    json.dump(inventory, file)
-    file.close()
-    print("Inventory saved successfully to inventory.json.")
+from product import Product
+from inventory import Inventory
 
 
 def add_product(inventory):
@@ -28,54 +8,49 @@ def add_product(inventory):
     name = input("Product Name: ")
     price = float(input("Price: "))
     stock = int(input("Stock Quantity: "))
-    inventory.append({"id": pid, "name": name, "price": price, "stock": stock})
+    inventory.add_product(Product(pid, name, price, stock))
     print("Product added successfully!")
 
 
 def update_stock(inventory):
     print("Update Stock")
     pid = input("Enter Product ID: ")
-    for p in inventory:
-        if p["id"] == pid:
-            print("Product Found:")
-            print("Name:", p["name"])
-            print("Current Stock:", p["stock"])
-            new_stock = int(input("New Stock Quantity: "))
-            p["stock"] = new_stock
-            print("Stock updated successfully!")
-            return
-    print("Product not found.")
+    product = inventory.search_product(pid)
+    if product is None:
+        print("Product not found.")
+    else:
+        print("Product Found:")
+        print("Name:", product.get_name())
+        print("Current Stock:", product.get_stock())
+        new_stock = int(input("New Stock Quantity: "))
+        product.update_stock(new_stock)
+        print("Stock updated successfully!")
 
 
 def search_product(inventory):
     print("Search Product")
     pid = input("Enter Product ID: ")
-    for p in inventory:
-        if p["id"] == pid:
-            print("Product Found")
-            print("------------------------------------------------")
-            print("ID:", p["id"])
-            print("Name:", p["name"])
-            print("Price: $%.2f" % p["price"])
-            print("Stock:", p["stock"])
-            print("------------------------------------------------")
-            return
-    print("Product not found.")
-
-
-def display_all(inventory):
-    print("Current Inventory")
-    print("------------------------------------------------")
-    for p in inventory:
-        print("ID: %s | Name: %s | Price: $%.2f | Stock: %d" % (p["id"], p["name"], p["price"], p["stock"]))
-    print("------------------------------------------------")
+    product = inventory.search_product(pid)
+    if product is None:
+        print("Product not found.")
+    else:
+        print("Product Found")
+        print("------------------------------------------------")
+        print("ID:", product.get_product_id())
+        print("Name:", product.get_name())
+        print("Price: $%.2f" % product.get_price())
+        print("Stock:", product.get_stock())
+        print("------------------------------------------------")
 
 
 print("========================================")
 print("INVENTORY MANAGEMENT SYSTEM")
 print("========================================")
 
-inventory = load_inventory()
+inventory = Inventory()
+inventory.add_product(Product("P001", "Laptop", 1200.00, 15))
+inventory.add_product(Product("P002", "Mouse", 25.50, 40))
+inventory.add_product(Product("P003", "Keyboard", 45.00, 25))
 
 while True:
     print("----------- MENU -----------")
@@ -89,7 +64,7 @@ while True:
     option = input("Enter option: ")
 
     if option == "1":
-        display_all(inventory)
+        inventory.display_all()
     elif option == "2":
         add_product(inventory)
     elif option == "3":
@@ -97,11 +72,8 @@ while True:
     elif option == "4":
         search_product(inventory)
     elif option == "5":
-        save_inventory(inventory)
+        print("save_inventory() not implemented yet.")
     elif option == "6":
-        print("Saving inventory before exit...")
-        save_inventory(inventory)
-        print("Thank you for using Inventory Management System.")
         print("Program terminated.")
         break
     else:
