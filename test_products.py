@@ -13,6 +13,9 @@ print(guitar.get_fulfilment_info())
 antivirus.display_information()
 print(antivirus.get_fulfilment_info())
 
+for p in [guitar, book, anvil]:
+    print("%s shipping cost: $%.2f" % (p.get_name(), p.calculate_shipping_cost()))
+
 print("Digital can be shipped:", isinstance(antivirus, CanBeShipped))
 
 try:
