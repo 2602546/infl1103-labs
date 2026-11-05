@@ -1,6 +1,12 @@
 import json
-from product import Product
+from PhysicalProduct import PhysicalProduct
 from inventory import Inventory
+
+
+def create_product(d):
+    if d.get("type") == "physical":
+        return PhysicalProduct(d["id"], d["name"], d["price"], d["stock"], d["weight"])
+    return None
 
 
 def load_inventory(inventory):
@@ -9,7 +15,9 @@ def load_inventory(inventory):
         data = json.load(file)
         file.close()
         for d in data:
-            inventory.add_product(Product(d["id"], d["name"], d["price"], d["stock"]))
+            product = create_product(d)
+            if product is not None:
+                inventory.add_product(product)
         print("inventory.json found.")
         print("Inventory loaded successfully.")
     except FileNotFoundError:
@@ -20,18 +28,26 @@ def save_inventory(inventory):
     print("Saving inventory...")
     data = [p.to_dict() for p in inventory.get_products()]
     file = open("inventory.json", "w")
-    json.dump(data, file)
+    json.dump(data, file, indent=2)
     file.close()
     print("Inventory saved successfully to inventory.json.")
 
 
 def add_product(inventory):
     print("Add New Product")
+    print("1. Physical Product")
+    choice = input("Product Type: ")
+    if choice != "1" and choice != "2":
+        print("Invalid product type.")
+        return
     pid = input("Product ID: ")
     name = input("Product Name: ")
     price = float(input("Price: "))
     stock = int(input("Stock Quantity: "))
-    inventory.add_product(Product(pid, name, price, stock))
+    if choice == "1":
+        weight = float(input("Weight (kg): "))
+        product = PhysicalProduct(pid, name, price, stock, weight)
+    inventory.add_product(product)
     print("Product added successfully!")
 
 
@@ -59,10 +75,7 @@ def search_product(inventory):
     else:
         print("Product Found")
         print("------------------------------------------------")
-        print("ID:", product.get_product_id())
-        print("Name:", product.get_name())
-        print("Price: $%.2f" % product.get_price())
-        print("Stock:", product.get_stock())
+        product.display_information()
         print("------------------------------------------------")
 
 
