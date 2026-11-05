@@ -9,3 +9,8 @@ guitar.display_information()
 print(guitar.get_fulfilment_info())
 antivirus.display_information()
 print(antivirus.get_fulfilment_info())
+
+try:
+    generic = Product("X001", "Generic", 10.00, 1)
+except TypeError as error:
+    print("Cannot create Product directly:", error)
