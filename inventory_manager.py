@@ -1,6 +1,7 @@
 import json
 from PhysicalProduct import PhysicalProduct
 from DigitalProduct import DigitalProduct
+from SubscriptionProduct import SubscriptionProduct
 from can_be_shipped import CanBeShipped
 from inventory import Inventory
 
@@ -10,6 +11,8 @@ def create_product(d):
         return PhysicalProduct(d["id"], d["name"], d["price"], d["stock"], d["weight"])
     elif d.get("type") == "digital":
         return DigitalProduct(d["id"], d["name"], d["price"], d["stock"], d["download_size"])
+    elif d.get("type") == "subscription":
+        return SubscriptionProduct(d["id"], d["name"], d["price"], d["stock"], d["duration_months"])
     return None
 
 
@@ -41,8 +44,9 @@ def add_product(inventory):
     print("Add New Product")
     print("1. Physical Product")
     print("2. Digital Product")
+    print("3. Subscription Product")
     choice = input("Product Type: ")
-    if choice != "1" and choice != "2":
+    if choice != "1" and choice != "2" and choice != "3":
         print("Invalid product type.")
         return
     pid = input("Product ID: ")
@@ -52,9 +56,12 @@ def add_product(inventory):
     if choice == "1":
         weight = float(input("Weight (kg): "))
         product = PhysicalProduct(pid, name, price, stock, weight)
-    else:
+    elif choice == "2":
         download_size = float(input("Download Size (MB): "))
         product = DigitalProduct(pid, name, price, stock, download_size)
+    else:
+        duration = int(input("Duration (months): "))
+        product = SubscriptionProduct(pid, name, price, stock, duration)
     inventory.add_product(product)
     print("Product added successfully!")
 
