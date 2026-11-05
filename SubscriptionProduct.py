@@ -14,3 +14,9 @@ class SubscriptionProduct(Product):
 
     def get_fulfilment_info(self):
         return "Activated online and renews every %d months." % self.__duration_months
+    
+    def to_dict(self):
+        data = super().to_dict()
+        data["type"] = "subscription"
+        data["duration_months"] = self.__duration_months
+        return data
