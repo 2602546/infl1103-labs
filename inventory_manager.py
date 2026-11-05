@@ -1,11 +1,14 @@
 import json
 from PhysicalProduct import PhysicalProduct
+from DigitalProduct import DigitalProduct
 from inventory import Inventory
 
 
 def create_product(d):
     if d.get("type") == "physical":
         return PhysicalProduct(d["id"], d["name"], d["price"], d["stock"], d["weight"])
+    elif d.get("type") == "digital":
+        return DigitalProduct(d["id"], d["name"], d["price"], d["stock"], d["download_size"])
     return None
 
 
@@ -36,6 +39,7 @@ def save_inventory(inventory):
 def add_product(inventory):
     print("Add New Product")
     print("1. Physical Product")
+    print("2. Digital Product")
     choice = input("Product Type: ")
     if choice != "1" and choice != "2":
         print("Invalid product type.")
@@ -47,6 +51,9 @@ def add_product(inventory):
     if choice == "1":
         weight = float(input("Weight (kg): "))
         product = PhysicalProduct(pid, name, price, stock, weight)
+    else:
+        download_size = float(input("Download Size (MB): "))
+        product = DigitalProduct(pid, name, price, stock, download_size)
     inventory.add_product(product)
     print("Product added successfully!")
 
@@ -76,6 +83,7 @@ def search_product(inventory):
         print("Product Found")
         print("------------------------------------------------")
         product.display_information()
+        print("Fulfilment:", product.get_fulfilment_info())
         print("------------------------------------------------")
 
 
