@@ -1,0 +1,29 @@
+1. What is the difference between a class and an object?
+	The class is a blueprint while an object is built from that blueprint. For example, Product is the class and Product("P001", "Laptop", 1200.00, 15) is an object.
+
+2. Why is Product a suitable class for this system?
+	products is the main point for an inventory management system. it has data and logic such as updating stocks and displaying it, so it should have its own class.
+
+3. What data belongs inside a Product object?
+	product ID, name, price and stock quantity.
+
+4. Why should the Product class manage its own stock rather than the main program directly changing it?
+	if main sets the stock directly, product.py cannot control how the value changes, so with the update_stock() function, the class can decide how a value is treated without changing any of the code outside of product.py
+
+5.What does encapsulation mean in your program?
+	it means that the attributes are private, and inventory_manager.py can only reach them through public methods calling the class such as get_stock() and update_stock(). it stops outside code from changing the data directly.
+
+6. What is the responsibility of the Product class?
+	manage a single product
+
+7. What is the responsibility of the Inventory class?
+	manage the collection of product, stores them, adds them, searches and displays them.
+
+8. How does separating these responsibilities demonstrate the Single Responsibility Principle?
+	every class handles changes separately. product.py changes if product behaviour changes, inventory.py changes if the collection of product changes and inventory_manager.py changes if the menu changes. file handling and user input are kept seperateky.
+
+9. What information does the main program need to know about a Product?
+	it only needs the values for the interface. so it can get_name(), get_price(), get_stock(), get_product_id() and update_stock()
+
+10. What information about the internal implementation of Product does the main program not need to know?
+	it don't need to know how the data is stored internally, it only needs to get the data.
