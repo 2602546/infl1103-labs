@@ -11,3 +11,6 @@ class SubscriptionProduct(Product):
     def display_information(self):
         super().display_information()
         print("    Type: Subscription | Duration: %d months" % self.__duration_months)
+
+    def get_fulfilment_info(self):
+        return "Activated online and renews every %d months." % self.__duration_months
