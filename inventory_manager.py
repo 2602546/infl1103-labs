@@ -1,6 +1,7 @@
 import json
 from PhysicalProduct import PhysicalProduct
 from DigitalProduct import DigitalProduct
+from can_be_shipped import CanBeShipped
 from inventory import Inventory
 
 
@@ -84,6 +85,8 @@ def search_product(inventory):
         print("------------------------------------------------")
         product.display_information()
         print("Fulfilment:", product.get_fulfilment_info())
+        if isinstance(product, CanBeShipped):
+            print("Shipping Cost: $%.2f" % product.calculate_shipping_cost())
         print("------------------------------------------------")
 
 
