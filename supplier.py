@@ -9,3 +9,6 @@ class supplier:
 
     def get_contact_email(self) -> str:
             return self.__contact_email
+
+    def display_information(self) -> None:
+            print("Supplier ID: %s | Name: %s | Email: %s" % (self.__supplier_id, self.__name, self.__contact_email))
