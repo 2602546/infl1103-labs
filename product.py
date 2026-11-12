@@ -25,7 +25,7 @@ class Product(ABC):
     def get_supplier(self) -> Supplier:
             return self.__supplier
 
-    def update_stock(self, quantity):
+    def update_stock(self, quantity: int) -> None:
         self.__stock = quantity
 
     def display_information(self):
