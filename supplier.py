@@ -3,3 +3,8 @@ class supplier:
             self.__supplier_id: str = supplier_id
             self.__name: str = name
             self.__contact_email: str = contact_email
+
+    def get_supplier_id(self) -> str:
+            return self.__supplier_id
+
+    
