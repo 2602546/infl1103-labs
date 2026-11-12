@@ -1,5 +1,6 @@
 from product import Product
 from can_be_shipped import CanBeShipped
+from supplier import Supplier
 
 
 class PhysicalProduct(Product, CanBeShipped):
