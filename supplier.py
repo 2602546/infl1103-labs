@@ -7,4 +7,5 @@ class supplier:
     def get_supplier_id(self) -> str:
             return self.__supplier_id
 
-    
+    def get_contact_email(self) -> str:
+            return self.__contact_email
