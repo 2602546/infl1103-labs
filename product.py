@@ -28,8 +28,8 @@ class Product(ABC):
     def update_stock(self, quantity: int) -> None:
         self.__stock = quantity
 
-    def display_information(self):
-        print("ID: %s | Name: %s | Price: $%.2f | Stock: %d" % (self.__product_id, self.__name, self.__price, self.__stock))
+    def display_information(self) -> None:
+        print("ID: %s | Name: %s | Price: $%.2f | Stock: %d | Supplier: %s" % (self.__product_id, self.__name, self.__price, self.__stock, self.__supplier.get_name()))
 
     def to_dict(self):
         return {"id": self.__product_id, "name": self.__name, "price": self.__price, "stock": self.__stock}
