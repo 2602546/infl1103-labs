@@ -22,6 +22,9 @@ class Product(ABC):
     def get_stock(self) -> int:
         return self.__stock
 
+    def get_supplier(self) -> Supplier:
+            return self.__supplier
+
     def update_stock(self, quantity):
         self.__stock = quantity
 
