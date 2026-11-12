@@ -31,8 +31,8 @@ class Product(ABC):
     def display_information(self) -> None:
         print("ID: %s | Name: %s | Price: $%.2f | Stock: %d | Supplier: %s" % (self.__product_id, self.__name, self.__price, self.__stock, self.__supplier.get_name()))
 
-    def to_dict(self):
-        return {"id": self.__product_id, "name": self.__name, "price": self.__price, "stock": self.__stock}
+    def to_dict(self) -> dict:
+        return {"id": self.__product_id, "name": self.__name, "price": self.__price, "stock": self.__stock, "supplier_id": self.__supplier.get_supplier_id()}
 
     @abstractmethod
     def get_fulfilment_info(self):
