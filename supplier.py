@@ -12,3 +12,6 @@ class supplier:
 
     def display_information(self) -> None:
             print("Supplier ID: %s | Name: %s | Email: %s" % (self.__supplier_id, self.__name, self.__contact_email))
+
+    def to_dict(self) -> dict:
+        return {"id": self.__supplier_id, "name": self.__name, "contact_email": self.__contact_email}
