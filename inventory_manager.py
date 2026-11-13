@@ -118,6 +118,13 @@ def search_product(inventory: Inventory) -> None:
             print("Shipping Cost: $%.2f" % product.calculate_shipping_cost())
         print("------------------------------------------------")
 
+def remove_product(inventory: Inventory) -> None:
+    print("Remove Product")
+    pid = input("Enter Product ID: ")
+    if inventory.remove_product(pid):
+        print("Product removed from inventory.")
+    else:
+        print("Product not found.")
 
 print("========================================")
 print("INVENTORY MANAGEMENT SYSTEM")
