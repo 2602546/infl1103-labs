@@ -7,13 +7,14 @@ from inventory import Inventory
 from supplier import Supplier
 
 
-def create_product(d):
+def create_product(d: dict, suppliers: dict[str, Supplier]) -> Product | None:
+    supplier = suppliers.get(d.get("supplier_id", ""))
+    if supplier is None:
+        return None
     if d.get("type") == "physical":
-        return PhysicalProduct(d["id"], d["name"], d["price"], d["stock"], d["weight"])
+        return PhysicalProduct(d["id"], d["name"], d["price"], d["stock"], supplier, d["weight"])
     elif d.get("type") == "digital":
-        return DigitalProduct(d["id"], d["name"], d["price"], d["stock"], d["download_size"])
-    elif d.get("type") == "subscription":
-        return SubscriptionProduct(d["id"], d["name"], d["price"], d["stock"], d["duration_months"])
+        return DigitalProduct(d["id"], d["name"], d["price"], d["stock"], supplier, d["download_size"])
     return None
 
 
