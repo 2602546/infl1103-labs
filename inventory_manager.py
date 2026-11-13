@@ -1,11 +1,10 @@
 import json
-from PhysicalProduct import PhysicalProduct
-from DigitalProduct import DigitalProduct
-from SubscriptionProduct import SubscriptionProduct
-from can_be_shipped import CanBeShipped
-from inventory import Inventory
 from supplier import Supplier
 from product import Product
+from PhysicalProduct import PhysicalProduct
+from DigitalProduct import DigitalProduct
+from can_be_shipped import CanBeShipped
+from inventory import Inventory
 
 
 def create_product(d: dict, suppliers: dict[str, Supplier]) -> Product | None:
@@ -90,7 +89,7 @@ def add_product(inventory: Inventory, suppliers: dict[str, Supplier]) -> None:
 def update_stock(inventory: Inventory) -> None:
     print("Update Stock")
     pid = input("Enter Product ID: ")
-    product = inventory.search_product(pid)
+    product = inventory.find_product(pid)
     if product is None:
         print("Product not found.")
     else:
@@ -105,7 +104,7 @@ def update_stock(inventory: Inventory) -> None:
 def search_product(inventory: Inventory) -> None:
     print("Search Product")
     pid = input("Enter Product ID: ")
-    product = inventory.search_product(pid)
+    product = inventory.find_product(pid)
     if product is None:
         print("Product not found.")
     else:
@@ -118,6 +117,7 @@ def search_product(inventory: Inventory) -> None:
             print("Shipping Cost: $%.2f" % product.calculate_shipping_cost())
         print("------------------------------------------------")
 
+
 def remove_product(inventory: Inventory) -> None:
     print("Remove Product")
     pid = input("Enter Product ID: ")
@@ -125,6 +125,7 @@ def remove_product(inventory: Inventory) -> None:
         print("Product removed from inventory.")
     else:
         print("Product not found.")
+
 
 print("========================================")
 print("INVENTORY MANAGEMENT SYSTEM")
@@ -140,13 +141,14 @@ while True:
     print("2. Add Product")
     print("3. Update Stock")
     print("4. Search Product")
-    print("5. Save Inventory")
-    print("6. Exit")
+    print("5. Remove Product")
+    print("6. Save Inventory")
+    print("7. Exit")
     print("----------------------------")
     option = input("Enter option: ")
 
     if option == "1":
-        inventory.display_all()
+        inventory.display_all_products()
     elif option == "2":
         add_product(inventory, suppliers)
     elif option == "3":
@@ -154,8 +156,10 @@ while True:
     elif option == "4":
         search_product(inventory)
     elif option == "5":
-        save_inventory(inventory, suppliers)
+        remove_product(inventory)
     elif option == "6":
+        save_inventory(inventory, suppliers)
+    elif option == "7":
         print("Saving inventory before exit...")
         save_inventory(inventory, suppliers)
         print("Thank you for using Inventory Management System.")
