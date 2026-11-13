@@ -4,6 +4,7 @@ from DigitalProduct import DigitalProduct
 from SubscriptionProduct import SubscriptionProduct
 from can_be_shipped import CanBeShipped
 from inventory import Inventory
+from supplier import Supplier
 
 
 def create_product(d):
