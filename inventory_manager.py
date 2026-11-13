@@ -127,6 +127,24 @@ def remove_product(inventory: Inventory) -> None:
     else:
         print("Product not found.")
 
+def create_order(inventory: Inventory) -> None:
+    print("Create Order")
+    order = Order(input("Order ID: "))
+    while True:
+        pid = input("Product ID (or done): ")
+        if pid == "done":
+            break
+        product = inventory.find_product(pid)
+        if product is None:
+            print("Product not found.")
+        else:
+            quantity = input("Quantity: ")
+            if quantity.isdigit() and int(quantity) > 0:
+                order.add_order_line(product, int(quantity))
+            else:
+                print("Invalid quantity.")
+    order.display_order()
+
 
 print("========================================")
 print("INVENTORY MANAGEMENT SYSTEM")
