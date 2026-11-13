@@ -7,3 +7,6 @@ class OrderLine:
 
     def get_product(self) -> Product:
         return self.__product
+
+    def get_quantity(self) -> int:
+        return self.__quantity
