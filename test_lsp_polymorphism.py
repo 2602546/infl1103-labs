@@ -22,3 +22,8 @@ show_product_details(antivirus)
 inventory = Inventory()
 inventory.add_product(guitar)
 inventory.add_product(antivirus)
+
+print("\nOne loop over the Product collection:")
+for product in inventory.get_products():
+    product.display_information()
+    print(product.get_fulfilment_info())
