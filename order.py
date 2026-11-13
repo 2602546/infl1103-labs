@@ -28,3 +28,11 @@ class Order:
         for line in self.__order_lines:
             total += line.calculate_subtotal()
         return total
+
+    def display_order(self) -> None:
+        print("Order:", self.__order_id)
+        print("------------------------------------------------")
+        for line in self.__order_lines:
+            line.display_information()
+        print("Total: $%.2f" % self.calculate_total())
+        print("------------------------------------------------")
