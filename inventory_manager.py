@@ -18,19 +18,23 @@ def create_product(d: dict, suppliers: dict[str, Supplier]) -> Product | None:
     return None
 
 
-def load_inventory(inventory):
+def load_inventory(inventory: Inventory, suppliers: dict[str, Supplier]) -> None:
     try:
         file = open("inventory.json", "r")
         data = json.load(file)
         file.close()
-        for d in data:
-            product = create_product(d)
+        for s in data["suppliers"]:
+            suppliers[s["id"]] = Supplier(s["id"], s["name"], s["contact_email"])
+        for d in data["products"]:
+            product = create_product(d, suppliers)
             if product is not None:
                 inventory.add_product(product)
         print("inventory.json found.")
         print("Inventory loaded successfully.")
     except FileNotFoundError:
         print("inventory.json not found. Starting with empty inventory.")
+    except (KeyError, TypeError, ValueError):
+        print("inventory.json could not be read. Starting with empty inventory.")
 
 
 def save_inventory(inventory):
