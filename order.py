@@ -8,3 +8,6 @@ class Order:
 
     def get_order_id(self) -> str:
         return self.__order_id
+
+    def get_order_lines(self) -> list[OrderLine]:
+        return list(self.__order_lines)
