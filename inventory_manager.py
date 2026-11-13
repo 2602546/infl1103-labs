@@ -101,7 +101,7 @@ def update_stock(inventory: Inventory) -> None:
         print("Stock updated successfully!")
 
 
-def search_product(inventory):
+def search_product(inventory: Inventory) -> None:
     print("Search Product")
     pid = input("Enter Product ID: ")
     product = inventory.search_product(pid)
@@ -111,6 +111,7 @@ def search_product(inventory):
         print("Product Found")
         print("------------------------------------------------")
         product.display_information()
+        product.get_supplier().display_information()
         print("Fulfilment:", product.get_fulfilment_info())
         if isinstance(product, CanBeShipped):
             print("Shipping Cost: $%.2f" % product.calculate_shipping_cost())
@@ -121,8 +122,9 @@ print("========================================")
 print("INVENTORY MANAGEMENT SYSTEM")
 print("========================================")
 
-inventory = Inventory()
-load_inventory(inventory)
+inventory: Inventory = Inventory()
+suppliers: dict[str, Supplier] = {}
+load_inventory(inventory, suppliers)
 
 while True:
     print("----------- MENU -----------")
@@ -138,16 +140,16 @@ while True:
     if option == "1":
         inventory.display_all()
     elif option == "2":
-        add_product(inventory)
+        add_product(inventory, suppliers)
     elif option == "3":
         update_stock(inventory)
     elif option == "4":
         search_product(inventory)
     elif option == "5":
-        save_inventory(inventory)
+        save_inventory(inventory, suppliers)
     elif option == "6":
         print("Saving inventory before exit...")
-        save_inventory(inventory)
+        save_inventory(inventory, suppliers)
         print("Thank you for using Inventory Management System.")
         print("Program terminated.")
         break
