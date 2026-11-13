@@ -13,3 +13,6 @@ class OrderLine:
 
     def calculate_subtotal(self) -> float:
         return self.__product.get_price() * self.__quantity
+
+    def display_information(self) -> None:
+        print("%s x %d @ $%.2f = $%.2f" % (self.__product.get_name(), self.__quantity, self.__product.get_price(), self.calculate_subtotal()))
