@@ -37,9 +37,12 @@ def load_inventory(inventory: Inventory, suppliers: dict[str, Supplier]) -> None
         print("inventory.json could not be read. Starting with empty inventory.")
 
 
-def save_inventory(inventory):
+def save_inventory(inventory: Inventory, suppliers: dict[str, Supplier]) -> None:
     print("Saving inventory...")
-    data = [p.to_dict() for p in inventory.get_products()]
+    data = {
+        "suppliers": [s.to_dict() for s in suppliers.values()],
+        "products": [p.to_dict() for p in inventory.get_products()]
+    }
     file = open("inventory.json", "w")
     json.dump(data, file, indent=2)
     file.close()
