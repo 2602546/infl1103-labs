@@ -20,7 +20,7 @@ class Inventory:
                 return p
         return None
 
-    def display_all(self):
+    def display_all_products(self) -> None:
         print("Current Inventory")
         print("------------------------------------------------")
         for p in self.__products:
