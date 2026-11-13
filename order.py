@@ -22,3 +22,9 @@ class Order:
                 self.__order_lines.remove(line)
                 return True
         return False
+
+    def calculate_total(self) -> float:
+        total = 0.0
+        for line in self.__order_lines:
+            total += line.calculate_subtotal()
+        return total
