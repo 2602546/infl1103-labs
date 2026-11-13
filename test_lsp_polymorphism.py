@@ -32,3 +32,6 @@ print("\nSame Product operation on every product (update_stock):")
 for product in inventory.get_products():
     product.update_stock(10)
     print(product.get_name(), "stock is now", product.get_stock())
+
+print("\nInventory operations still work:")
+inventory.display_all_products()
