@@ -27,3 +27,8 @@ print("\nOne loop over the Product collection:")
 for product in inventory.get_products():
     product.display_information()
     print(product.get_fulfilment_info())
+
+print("\nSame Product operation on every product (update_stock):")
+for product in inventory.get_products():
+    product.update_stock(10)
+    print(product.get_name(), "stock is now", product.get_stock())
