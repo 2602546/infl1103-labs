@@ -86,7 +86,7 @@ def add_product(inventory: Inventory, suppliers: dict[str, Supplier]) -> None:
     print("Product added successfully!")
 
 
-def update_stock(inventory):
+def update_stock(inventory: Inventory) -> None:
     print("Update Stock")
     pid = input("Enter Product ID: ")
     product = inventory.search_product(pid)
