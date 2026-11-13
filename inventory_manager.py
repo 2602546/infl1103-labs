@@ -49,6 +49,19 @@ def save_inventory(inventory: Inventory, suppliers: dict[str, Supplier]) -> None
     print("Inventory saved successfully to inventory.json.")
 
 
+def choose_supplier(suppliers: dict[str, Supplier]) -> Supplier:
+    supplier_id = input("Supplier ID: ")
+    if supplier_id in suppliers:
+        print("Existing supplier selected.")
+        return suppliers[supplier_id]
+    name = input("Supplier Name: ")
+    email = input("Supplier Email: ")
+    supplier = Supplier(supplier_id, name, email)
+    suppliers[supplier_id] = supplier
+    print("New supplier created.")
+    return supplier
+
+
 def add_product(inventory):
     print("Add New Product")
     print("1. Physical Product")
