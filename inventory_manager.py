@@ -5,6 +5,7 @@ from PhysicalProduct import PhysicalProduct
 from DigitalProduct import DigitalProduct
 from can_be_shipped import CanBeShipped
 from inventory import Inventory
+from order import Order
 
 
 def create_product(d: dict, suppliers: dict[str, Supplier]) -> Product | None:
