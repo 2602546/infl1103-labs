@@ -18,3 +18,7 @@ input("Write your prediction down, then press Enter to run the test: ")
 print("\nshow_product_details with each product type:")
 show_product_details(guitar)
 show_product_details(antivirus)
+
+inventory = Inventory()
+inventory.add_product(guitar)
+inventory.add_product(antivirus)
