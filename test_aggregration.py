@@ -18,3 +18,7 @@ print("\nIn Inventory A:", inventory_a.find_product("P001") is guitar)
 removed = inventory_a.remove_product("P001")
 print("Removed from Inventory A:", removed)
 print("Still in Inventory A:", inventory_a.find_product("P001") is not None)
+
+guitar.display_information()
+guitar.update_stock(8)
+print("Stock after update:", guitar.get_stock())
