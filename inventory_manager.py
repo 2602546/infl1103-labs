@@ -62,28 +62,26 @@ def choose_supplier(suppliers: dict[str, Supplier]) -> Supplier:
     return supplier
 
 
-def add_product(inventory):
+def add_product(inventory: Inventory, suppliers: dict[str, Supplier]) -> None:
     print("Add New Product")
     print("1. Physical Product")
     print("2. Digital Product")
-    print("3. Subscription Product")
     choice = input("Product Type: ")
-    if choice != "1" and choice != "2" and choice != "3":
+    if choice != "1" and choice != "2":
         print("Invalid product type.")
         return
     pid = input("Product ID: ")
     name = input("Product Name: ")
     price = float(input("Price: "))
     stock = int(input("Stock Quantity: "))
+    supplier = choose_supplier(suppliers)
+    product: Product
     if choice == "1":
         weight = float(input("Weight (kg): "))
-        product = PhysicalProduct(pid, name, price, stock, weight)
-    elif choice == "2":
-        download_size = float(input("Download Size (MB): "))
-        product = DigitalProduct(pid, name, price, stock, download_size)
+        product = PhysicalProduct(pid, name, price, stock, supplier, weight)
     else:
-        duration = int(input("Duration (months): "))
-        product = SubscriptionProduct(pid, name, price, stock, duration)
+        download_size = float(input("Download Size (MB): "))
+        product = DigitalProduct(pid, name, price, stock, supplier, download_size)
     inventory.add_product(product)
     print("Product added successfully!")
 
