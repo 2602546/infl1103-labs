@@ -27,5 +27,5 @@ class Inventory:
             p.display_information()
         print("------------------------------------------------")
 
-    def get_products(self):
+    def get_products(self) -> list[Product]:
         return self.__products
