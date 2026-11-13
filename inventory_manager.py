@@ -5,6 +5,7 @@ from SubscriptionProduct import SubscriptionProduct
 from can_be_shipped import CanBeShipped
 from inventory import Inventory
 from supplier import Supplier
+from product import Product
 
 
 def create_product(d: dict, suppliers: dict[str, Supplier]) -> Product | None:
