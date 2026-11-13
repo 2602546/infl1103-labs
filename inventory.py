@@ -14,7 +14,7 @@ class Inventory:
         self.__products.remove(product)
         return True
 
-    def search_product(self, product_id: str) -> Product | None:
+    def find_product(self, product_id: str) -> Product | None:
         for p in self.__products:
             if p.get_product_id() == product_id:
                 return p
