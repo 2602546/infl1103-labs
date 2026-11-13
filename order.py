@@ -11,3 +11,7 @@ class Order:
 
     def get_order_lines(self) -> list[OrderLine]:
         return list(self.__order_lines)
+
+    def add_order_line(self, product: Product, quantity: int) -> None:
+        order_line = OrderLine(product, quantity)
+        self.__order_lines.append(order_line)
