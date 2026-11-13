@@ -161,8 +161,9 @@ while True:
     print("3. Update Stock")
     print("4. Search Product")
     print("5. Remove Product")
-    print("6. Save Inventory")
-    print("7. Exit")
+    print("6. Create Order")
+    print("7. Save Inventory")
+    print("8. Exit")
     print("----------------------------")
     option = input("Enter option: ")
 
@@ -177,8 +178,10 @@ while True:
     elif option == "5":
         remove_product(inventory)
     elif option == "6":
-        save_inventory(inventory, suppliers)
+        create_order(inventory)
     elif option == "7":
+        save_inventory(inventory, suppliers)
+    elif option == "8":
         print("Saving inventory before exit...")
         save_inventory(inventory, suppliers)
         print("Thank you for using Inventory Management System.")
