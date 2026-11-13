@@ -1,8 +1,8 @@
 from product import Product
 
 class Inventory:
-    def __init__(self):
-        self.__products = []
+    def __init__(self) -> None:
+        self.__products: list[Product] = []
 
     def add_product(self, product):
         self.__products.append(product)
