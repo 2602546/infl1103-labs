@@ -22,3 +22,10 @@ print("Still in Inventory A:", inventory_a.find_product("P001") is not None)
 guitar.display_information()
 guitar.update_stock(8)
 print("Stock after update:", guitar.get_stock())
+
+inventory_b.add_product(guitar)
+print("\nSame object now in Inventory B:", inventory_b.find_product("P001") is guitar)
+
+inventory_b.remove_product("P001")
+print("Inventory B emptied, product still exists:")
+guitar.display_information()
