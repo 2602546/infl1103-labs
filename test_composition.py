@@ -32,3 +32,5 @@ print("Order 1 id:", id(line_a), "| Order 2 id:", id(line_b), "| Product id:", i
 
 print("\nRemoving the Antivirus line from Order O001:")
 order1.remove_order_line("D001")
+order1.display_order()
+print("Antivirus Product still exists:", antivirus.get_name())
