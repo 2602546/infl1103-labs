@@ -10,3 +10,6 @@ class OrderLine:
 
     def get_quantity(self) -> int:
         return self.__quantity
+
+    def calculate_subtotal(self) -> float:
+        return self.__product.get_price() * self.__quantity
