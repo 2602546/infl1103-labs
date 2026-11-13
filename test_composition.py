@@ -22,3 +22,10 @@ print()
 order1.display_order()
 print()
 order2.display_order()
+
+line_a = order1.get_order_lines()[0]
+line_b = order2.get_order_lines()[0]
+print("\nOrderLine objects created:", len(order1.get_order_lines()) + len(order2.get_order_lines()))
+print("The two Guitar OrderLines are the same object:", line_a is line_b)
+print("The two Guitar OrderLines refer to the same Product:", line_a.get_product() is line_b.get_product())
+print("Order 1 id:", id(line_a), "| Order 2 id:", id(line_b), "| Product id:", id(guitar))
