@@ -11,3 +11,10 @@ inventory_b = Inventory()
 print("PREDICT FIRST: after the Product is removed from Inventory A,")
 print("will the Product still work? Why?")
 input("Write your prediction down, then press Enter to run the test: ")
+
+inventory_a.add_product(guitar)
+print("\nIn Inventory A:", inventory_a.find_product("P001") is guitar)
+
+removed = inventory_a.remove_product("P001")
+print("Removed from Inventory A:", removed)
+print("Still in Inventory A:", inventory_a.find_product("P001") is not None)
