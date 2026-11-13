@@ -4,3 +4,6 @@ from inventory import Inventory
 
 supplier = Supplier("S001", "TechSource Pte Ltd", "sales@techsource.com")
 guitar = PhysicalProduct("P001", "Guitar", 499.00, 5, supplier, 3.5)
+
+inventory_a = Inventory()
+inventory_b = Inventory()
