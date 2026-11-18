@@ -1,8 +1,7 @@
 import json
 from supplier import Supplier
 from product import Product
-from PhysicalProduct import PhysicalProduct
-from DigitalProduct import DigitalProduct
+from product_factory import ProductFactory
 from can_be_shipped import CanBeShipped
 from inventory import Inventory
 from order import Order
@@ -17,11 +16,8 @@ def create_product(d: dict, suppliers: dict[str, Supplier]) -> Product | None:
     supplier = suppliers.get(d.get("supplier_id", ""))
     if supplier is None:
         return None
-    if d.get("type") == "physical":
-        return PhysicalProduct(d["id"], d["name"], d["price"], d["stock"], supplier, d["weight"])
-    elif d.get("type") == "digital":
-        return DigitalProduct(d["id"], d["name"], d["price"], d["stock"], supplier, d["download_size"])
-    return None
+    extra = d.get("weight", d.get("download_size", 0.0))
+    return ProductFactory.create(d.get("type", ""), d["id"], d["name"], d["price"], d["stock"], supplier, extra)
 
 
 def load_inventory(inventory: Inventory, suppliers: dict[str, Supplier]) -> None:
@@ -32,9 +28,13 @@ def load_inventory(inventory: Inventory, suppliers: dict[str, Supplier]) -> None
         for s in data["suppliers"]:
             suppliers[s["id"]] = Supplier(s["id"], s["name"], s["contact_email"])
         for d in data["products"]:
-            product = create_product(d, suppliers)
-            if product is not None:
-                inventory.add_product(product)
+            try:
+                product = create_product(d, suppliers)
+            except ValueError as error:
+                print("Skipped a product:", error)
+            else:
+                if product is not None:
+                    inventory.add_product(product)
         print("inventory.json found.")
         print("Inventory loaded successfully.")
     except FileNotFoundError:
@@ -81,13 +81,13 @@ def add_product(inventory: Inventory, suppliers: dict[str, Supplier]) -> None:
     price = float(input("Price: "))
     stock = int(input("Stock Quantity: "))
     supplier = choose_supplier(suppliers)
-    product: Product
     if choice == "1":
-        weight = float(input("Weight (kg): "))
-        product = PhysicalProduct(pid, name, price, stock, supplier, weight)
+        product_type = "physical"
+        extra = float(input("Weight (kg): "))
     else:
-        download_size = float(input("Download Size (MB): "))
-        product = DigitalProduct(pid, name, price, stock, supplier, download_size)
+        product_type = "digital"
+        extra = float(input("Download Size (MB): "))
+    product = ProductFactory.create(product_type, pid, name, price, stock, supplier, extra)
     inventory.add_product(product)
     print("Product added successfully!")
 
