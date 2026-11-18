@@ -1,0 +1,10 @@
+del supplier (Section 2.2): yes. it only removes the variable name supplier. each product stores their own reference to the supplier object. it can only be destroyed when nothing refers to it anymore. 
+
+Product removed from Inventory A (Section 3.2): the product will still work because the inventory is only holding a reference to it in a list, so removing the reference doesn't destroy the product, and it can still go into inventory b.
+
+Same Product in two Orders (Section 4.3): 2 OrderLine and 1 Product objects. Each Order creates its own OrderLine, but both lines refer to the same Product.
+
+get_fulfilment_info() (Section 7.2): 
+PhysicalProduct: Requires physical shipping
+DigitalProduct: Delivered digitally via download
+Python calls each object’s own overriding version.

@@ -6,6 +6,10 @@ from DigitalProduct import DigitalProduct
 from can_be_shipped import CanBeShipped
 from inventory import Inventory
 from order import Order
+from discount_strategy import DiscountStrategy
+from no_discount import NoDiscount
+from percentage_discount import PercentageDiscount
+from bulk_discount import BulkDiscount
 
 
 def create_product(d: dict, suppliers: dict[str, Supplier]) -> Product | None:
@@ -127,6 +131,20 @@ def remove_product(inventory: Inventory) -> None:
     else:
         print("Product not found.")
 
+
+def choose_discount() -> DiscountStrategy:
+    print("Discount")
+    print("1. None")
+    print("2. Percentage")
+    print("3. Bulk")
+    choice = input("Discount Type: ")
+    if choice == "2":
+        return PercentageDiscount(float(input("Percentage off: ")))
+    elif choice == "3":
+        return BulkDiscount(float(input("Order total threshold: ")), float(input("Amount off: ")))
+    return NoDiscount()
+
+
 def create_order(inventory: Inventory) -> None:
     print("Create Order")
     order = Order(input("Order ID: "))
@@ -143,6 +161,7 @@ def create_order(inventory: Inventory) -> None:
                 order.add_order_line(product, int(quantity))
             else:
                 print("Invalid quantity.")
+    order.set_discount(choose_discount())
     order.display_order()
 
 

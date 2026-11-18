@@ -1,18 +1,20 @@
-[
-  {
-    "id": "D001",
-    "name": "Micocksoft word",
-    "price": 9999.0,
-    "stock": 1,
-    "type": "digital",
-    "download_size": 2500.0
-  },
-  {
-    "id": "P001",
-    "name": "Pumpkin",
-    "price": 25.0,
-    "stock": 99,
-    "type": "physical",
-    "weight": 10.0
-  }
-]
+{
+  "suppliers": [
+    {
+      "id": "S101",
+      "name": "LogiParts",
+      "contact_email": "sales@logiparts.com"
+    }
+  ],
+  "products": [
+    {
+      "id": "P101",
+      "name": "Mouse",
+      "price": 25.5,
+      "stock": 40,
+      "supplier_id": "S101",
+      "type": "physical",
+      "weight": 0.2
+    }
+  ]
+}
