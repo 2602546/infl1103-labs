@@ -11,6 +11,7 @@ from percentage_discount import PercentageDiscount
 from bulk_discount import BulkDiscount
 from student_discount import StudentDiscount
 from input_helpers import get_positive_float, get_positive_int, get_non_negative_int
+from product_loader import load_products
 
 
 def create_product(d: dict, suppliers: dict[str, Supplier]) -> Product | None:
@@ -175,6 +176,15 @@ def create_order(inventory: Inventory) -> None:
     order.display_order()
 
 
+def load_products_from_file(inventory: Inventory, suppliers: dict[str, Supplier]) -> None:
+    print("Load Products From File")
+    path = input("File path (press Enter for products.csv): ")
+    if path == "":
+        path = "products.csv"
+    supplier = choose_supplier(suppliers)
+    load_products(path, inventory, supplier)
+
+
 print("========================================")
 print("INVENTORY MANAGEMENT SYSTEM")
 print("========================================")
@@ -191,8 +201,9 @@ while True:
     print("4. Search Product")
     print("5. Remove Product")
     print("6. Create Order")
-    print("7. Save Inventory")
-    print("8. Exit")
+    print("7. Load Products From File")
+    print("8. Save Inventory")
+    print("9. Exit")
     print("----------------------------")
     option = input("Enter option: ")
 
@@ -209,8 +220,10 @@ while True:
     elif option == "6":
         create_order(inventory)
     elif option == "7":
-        save_inventory(inventory, suppliers)
+        load_products_from_file(inventory, suppliers)
     elif option == "8":
+        save_inventory(inventory, suppliers)
+    elif option == "9":
         print("Saving inventory before exit...")
         save_inventory(inventory, suppliers)
         print("Thank you for using Inventory Management System.")
