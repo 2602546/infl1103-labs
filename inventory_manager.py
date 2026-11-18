@@ -87,7 +87,11 @@ def add_product(inventory: Inventory, suppliers: dict[str, Supplier]) -> None:
     else:
         product_type = "digital"
         extra = float(input("Download Size (MB): "))
-    product = ProductFactory.create(product_type, pid, name, price, stock, supplier, extra)
+    try:
+        product = ProductFactory.create(product_type, pid, name, price, stock, supplier, extra)
+    except ValueError as error:
+        print("Product not created:", error)
+        return
     inventory.add_product(product)
     print("Product added successfully!")
 
@@ -103,8 +107,12 @@ def update_stock(inventory: Inventory) -> None:
         print("Name:", product.get_name())
         print("Current Stock:", product.get_stock())
         new_stock = int(input("New Stock Quantity: "))
-        product.update_stock(new_stock)
-        print("Stock updated successfully!")
+        try:
+            product.update_stock(new_stock)
+        except ValueError as error:
+            print("Stock not updated:", error)
+        else:
+            print("Stock updated successfully!")
 
 
 def search_product(inventory: Inventory) -> None:
