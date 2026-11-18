@@ -10,6 +10,7 @@ from discount_strategy import DiscountStrategy
 from no_discount import NoDiscount
 from percentage_discount import PercentageDiscount
 from bulk_discount import BulkDiscount
+from student_discount import StudentDiscount
 
 
 def create_product(d: dict, suppliers: dict[str, Supplier]) -> Product | None:
@@ -137,11 +138,14 @@ def choose_discount() -> DiscountStrategy:
     print("1. None")
     print("2. Percentage")
     print("3. Bulk")
+    print("4. Student (5%)")
     choice = input("Discount Type: ")
     if choice == "2":
         return PercentageDiscount(float(input("Percentage off: ")))
     elif choice == "3":
         return BulkDiscount(float(input("Order total threshold: ")), float(input("Amount off: ")))
+    elif choice == "4":
+        return StudentDiscount()
     return NoDiscount()
 
 
