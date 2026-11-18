@@ -10,6 +10,7 @@ from no_discount import NoDiscount
 from percentage_discount import PercentageDiscount
 from bulk_discount import BulkDiscount
 from student_discount import StudentDiscount
+from input_helpers import get_positive_float, get_positive_int, get_non_negative_int
 
 
 def create_product(d: dict, suppliers: dict[str, Supplier]) -> Product | None:
@@ -78,15 +79,15 @@ def add_product(inventory: Inventory, suppliers: dict[str, Supplier]) -> None:
         return
     pid = input("Product ID: ")
     name = input("Product Name: ")
-    price = float(input("Price: "))
-    stock = int(input("Stock Quantity: "))
+    price = get_positive_float("Price: ")
+    stock = get_non_negative_int("Stock Quantity: ")
     supplier = choose_supplier(suppliers)
     if choice == "1":
         product_type = "physical"
-        extra = float(input("Weight (kg): "))
+        extra = get_positive_float("Weight (kg): ")
     else:
         product_type = "digital"
-        extra = float(input("Download Size (MB): "))
+        extra = get_positive_float("Download Size (MB): ")
     try:
         product = ProductFactory.create(product_type, pid, name, price, stock, supplier, extra)
     except ValueError as error:
@@ -106,7 +107,7 @@ def update_stock(inventory: Inventory) -> None:
         print("Product Found:")
         print("Name:", product.get_name())
         print("Current Stock:", product.get_stock())
-        new_stock = int(input("New Stock Quantity: "))
+        new_stock = get_non_negative_int("New Stock Quantity: ")
         try:
             product.update_stock(new_stock)
         except ValueError as error:
@@ -149,9 +150,9 @@ def choose_discount() -> DiscountStrategy:
     print("4. Student (5%)")
     choice = input("Discount Type: ")
     if choice == "2":
-        return PercentageDiscount(float(input("Percentage off: ")))
+        return PercentageDiscount(get_positive_float("Percentage off: "))
     elif choice == "3":
-        return BulkDiscount(float(input("Order total threshold: ")), float(input("Amount off: ")))
+        return BulkDiscount(get_positive_float("Order total threshold: "), get_positive_float("Amount off: "))
     elif choice == "4":
         return StudentDiscount()
     return NoDiscount()
@@ -168,11 +169,8 @@ def create_order(inventory: Inventory) -> None:
         if product is None:
             print("Product not found.")
         else:
-            quantity = input("Quantity: ")
-            if quantity.isdigit() and int(quantity) > 0:
-                order.add_order_line(product, int(quantity))
-            else:
-                print("Invalid quantity.")
+            quantity = get_positive_int("Quantity: ")
+            order.add_order_line(product, quantity)
     order.set_discount(choose_discount())
     order.display_order()
 
